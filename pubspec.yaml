@@ -22,6 +22,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   quiver: '>=2.0.0 <3.0.0'
   url_launcher: ^5.0.2
+  intl: ">=0.14.0"
+  fluttie: ^0.3.0
 
 dev_dependencies:
   flutter_test:
@@ -38,8 +40,12 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/help_earth_icon.png
+    - assets/help_earth_logo.json
 
   fonts:
-  - family: Primer
+  - family: Blogger Sans
     fonts:
-    - asset: fonts/Primer.ttf
+    - asset: fonts/Blogger Sans.ttf
+
