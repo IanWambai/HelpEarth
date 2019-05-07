@@ -80,7 +80,7 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
       children: [
         GestureDetector(
           onTap: () {
-            _launchURL("https://climate.nasa.gov/scientific-consensus/");
+            _openAboutPage(context);
           },
           child: Stack(alignment: AlignmentDirectional.center, children: [
             FluttieAnimation(animation, size: const Size(200.0, 200.0)),
@@ -191,5 +191,30 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
         repeatCount: const RepeatCount.infinite(),
         repeatMode: RepeatMode.START_OVER);
     animation.start();
+  }
+
+  _openAboutPage(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => SecondRoute()));
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("About Help Earth"),
+        backgroundColor: Colors.cyan,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 64, bottom: 32),
+        child: Text(
+          'If Time runs out, life as you know it will permanently change for the worse.',
+          style: new TextStyle(color: Colors.black, fontSize: 18.0),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    );
   }
 }
