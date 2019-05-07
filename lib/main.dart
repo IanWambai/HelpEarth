@@ -19,18 +19,32 @@ class CountdownTimerPage extends StatefulWidget {
 class CountdownTimerPageState extends State<CountdownTimerPage> {
   FluttieAnimationController animation;
 
-  final timeOutInSeconds = 315569520;
-  final stepInSeconds = 1;
+  int timeWeHaveLeft = 0;
+  int progressSinceReportWasReleased = 0;
   int currentNumber = 0;
+  final stepInSeconds = 1;
 
   CountdownTimerPageState() {
+    processCurrentTime();
     setupCountdownTimer();
     _processAnimation();
   }
 
+  processCurrentTime() async {
+    DateTime reportReleaseDate = DateTime(2018, 10, 8);
+    DateTime deadline = DateTime(2030, 1, 1);
+    DateTime now = DateTime.now();
+
+    timeWeHaveLeft = deadline.difference(now).inSeconds;
+    int timeSinceReportWasReleased =
+        deadline.difference(reportReleaseDate).inSeconds;
+    progressSinceReportWasReleased =
+        100 - ((timeWeHaveLeft / timeSinceReportWasReleased) * 100).toInt();
+  }
+
   setupCountdownTimer() {
     CountdownTimer countDownTimer = new CountdownTimer(
-        new Duration(seconds: timeOutInSeconds),
+        new Duration(seconds: timeWeHaveLeft),
         new Duration(seconds: stepInSeconds));
 
     var sub = countDownTimer.listen(null);
@@ -54,7 +68,7 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
   @override
   Widget build(BuildContext context) {
     final formatter = new NumberFormat("###,###,###,###,###,###");
-    int number = timeOutInSeconds - currentNumber;
+    int number = timeWeHaveLeft - currentNumber;
     number += stepInSeconds;
 
     return new Scaffold(
@@ -64,7 +78,22 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        FluttieAnimation(animation, size: const Size(160.0, 160.0)),
+        GestureDetector(
+          onTap: () {
+            _launchURL("https://climate.nasa.gov/scientific-consensus/");
+          },
+          child: Stack(alignment: AlignmentDirectional.center, children: [
+            FluttieAnimation(animation, size: const Size(200.0, 200.0)),
+            Padding(
+              padding: const EdgeInsets.only(left: 148.0, top: 42),
+              child: Image.asset('assets/information.png',
+                  width: 16.0,
+                  height: 16.0,
+                  fit: BoxFit.cover,
+                  color: Colors.grey),
+            )
+          ]),
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 32.0, right: 32, bottom: 32),
           child: Column(
@@ -85,12 +114,12 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 22.0),
                 child: FAProgressBar(
-                  currentValue: 80,
+                  currentValue: progressSinceReportWasReleased,
                   displayText: '%',
                   size: 8,
                   borderRadius: 4,
-                  progressColor: Colors.cyan,
-                  backgroundColor: Colors.red,
+                  progressColor: Colors.red,
+                  backgroundColor: Colors.cyan,
                 ),
               ),
               Text(
@@ -99,7 +128,7 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
                 textAlign: TextAlign.center,
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 56, bottom: 32),
+                padding: const EdgeInsets.only(top: 64, bottom: 32),
                 child: Text(
                   'If Time runs out, life as you know it will permanently change for the worse.',
                   style: new TextStyle(color: Colors.black, fontSize: 18.0),
@@ -158,7 +187,7 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
     var composition =
         await instance.loadAnimationFromAsset("assets/help_earth_logo.json");
     animation = await instance.prepareAnimation(composition,
-        duration: const Duration(seconds: 90),
+        duration: const Duration(seconds: 60),
         repeatCount: const RepeatCount.infinite(),
         repeatMode: RepeatMode.START_OVER);
     animation.start();

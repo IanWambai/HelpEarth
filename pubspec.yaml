@@ -43,6 +43,7 @@ flutter:
   assets:
     - assets/help_earth_icon.png
     - assets/help_earth_logo.json
+    - assets/information.png
 
   fonts:
   - family: Blogger Sans
