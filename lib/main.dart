@@ -80,17 +80,22 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
       children: [
         GestureDetector(
           onTap: () {
-            _openAboutPage(context);
+//            _openAboutPage(context);
           },
           child: Stack(alignment: AlignmentDirectional.center, children: [
             FluttieAnimation(animation, size: const Size(200.0, 200.0)),
             Padding(
               padding: const EdgeInsets.only(left: 148.0, top: 42),
-              child: Image.asset('assets/information.png',
-                  width: 16.0,
-                  height: 16.0,
-                  fit: BoxFit.cover,
-                  color: Colors.grey),
+              child: Opacity(
+                opacity: 0,
+                child: IgnorePointer(
+                  child: Image.asset('assets/information.png',
+                      width: 16.0,
+                      height: 16.0,
+                      fit: BoxFit.cover,
+                      color: Colors.grey),
+                ),
+              ),
             )
           ]),
         ),
@@ -185,7 +190,7 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
   _processAnimation() async {
     var instance = Fluttie();
     var composition =
-        await instance.loadAnimationFromAsset("assets/help_earth_logo.json");
+        await instance.loadAnimationFromAsset("assets/help_earth_animation.json");
     animation = await instance.prepareAnimation(composition,
         duration: const Duration(seconds: 60),
         repeatCount: const RepeatCount.infinite(),
