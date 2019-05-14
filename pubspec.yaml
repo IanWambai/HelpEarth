@@ -25,6 +25,7 @@ dependencies:
   intl: ">=0.14.0"
   fluttie: ^0.3.0
   flutter_launcher_icons: "^0.7.0"
+  share: ^0.6.1+1
 
 dev_dependencies:
   flutter_test:
@@ -46,8 +47,8 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/help_earth_animation.json
-    - assets/information.png
+  - assets/help_earth_animation.json
+  - assets/information.png
 
   fonts:
   - family: Blogger Sans

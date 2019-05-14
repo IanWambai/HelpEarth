@@ -3,6 +3,7 @@ import 'package:fluttie/fluttie.dart';
 import 'package:help_earth/progress_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:quiver/async.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -133,9 +134,9 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
                 textAlign: TextAlign.center,
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 64, bottom: 32),
+                padding: const EdgeInsets.only(top: 64, bottom: 24),
                 child: Text(
-                  'If Time runs out, life as you know it will permanently change for the worse.',
+                  'If Time runs out, life as you know it will permanently change for the worse.\n\nWe Are Already Out Of Time.',
                   style: new TextStyle(color: Colors.black, fontSize: 18.0),
                   textAlign: TextAlign.center,
                 ),
@@ -144,7 +145,7 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12, bottom: 36.0),
+          padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24.0),
           child: Center(
             child: GestureDetector(
               onTap: () {
@@ -164,8 +165,9 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
           child: Center(
             child: GestureDetector(
               onTap: () {
-                _launchURL(
-                    "http://www.preventclimatechange.co.uk/prevent-climate-change.html");
+                Share.share('We have ' +
+                    formatter.format(timeWeHaveLeft) +
+                    ' seconds left to #HelpEarth. If Time runs out, life as you know it will permanently change for the worse.\n\nWe Are Already Out Of Time.');
               },
               child: new Text(
                 'Do Something',
@@ -189,8 +191,8 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
 
   _processAnimation() async {
     var instance = Fluttie();
-    var composition =
-        await instance.loadAnimationFromAsset("assets/help_earth_animation.json");
+    var composition = await instance
+        .loadAnimationFromAsset("assets/help_earth_animation.json");
     animation = await instance.prepareAnimation(composition,
         duration: const Duration(seconds: 60),
         repeatCount: const RepeatCount.infinite(),
