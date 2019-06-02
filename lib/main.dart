@@ -73,112 +73,127 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
     number += stepInSeconds;
 
     return new Scaffold(
-        body: new Container(
-            child: new Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        GestureDetector(
-          onTap: () {
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  GestureDetector(
+                    onTap: () {
 //            _openAboutPage(context);
-          },
-          child: Stack(alignment: AlignmentDirectional.center, children: [
-            FluttieAnimation(animation, size: const Size(200.0, 200.0)),
-            Padding(
-              padding: const EdgeInsets.only(left: 148.0, top: 42),
-              child: Opacity(
-                opacity: 0,
-                child: IgnorePointer(
-                  child: Image.asset('assets/information.png',
-                      width: 16.0,
-                      height: 16.0,
-                      fit: BoxFit.cover,
-                      color: Colors.grey),
-                ),
-              ),
-            )
-          ]),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 32.0, right: 32, bottom: 32),
-          child: Column(
-            children: <Widget>[
-              Text(
-                'According to scientific reports, we have',
-                style: new TextStyle(color: Colors.black, fontSize: 22.0),
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 22.0),
-                child: Text(
-                  formatter.format(number),
-                  style: new TextStyle(color: Colors.cyan, fontSize: 48.0),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 22.0),
-                child: FAProgressBar(
-                  currentValue: progressSinceReportWasReleased,
-                  displayText: '%',
-                  size: 8,
-                  borderRadius: 4,
-                  progressColor: Colors.red,
-                  backgroundColor: Colors.cyan,
-                ),
-              ),
-              Text(
-                'seconds left to Help Earth.',
-                style: new TextStyle(color: Colors.black, fontSize: 22.0),
-                textAlign: TextAlign.center,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 64, bottom: 24),
-                child: Text(
-                  'If Time runs out, life as you know it will permanently change for the worse.\n\nWe Are Already Out Of Time.',
-                  style: new TextStyle(color: Colors.black, fontSize: 18.0),
-                  textAlign: TextAlign.center,
-                ),
-              )
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 12, right: 12, bottom: 24.0),
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                _launchURL("https://climate.nasa.gov/scientific-consensus/");
-              },
-              child: new Text(
-                'Read The Research',
-                style: new TextStyle(color: Colors.cyan, fontSize: 24.0),
-                textAlign: TextAlign.center,
+                    },
+                    child: Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          FluttieAnimation(animation,
+                              size: const Size(200.0, 200.0)),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 148.0, top: 42),
+                            child: Opacity(
+                              opacity: 0,
+                              child: IgnorePointer(
+                                child: Image.asset('assets/information.png',
+                                    width: 16.0,
+                                    height: 16.0,
+                                    fit: BoxFit.cover,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                          )
+                        ]),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 32.0, right: 32, bottom: 32),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          'According to scientific reports, we have',
+                          style: new TextStyle(
+                              color: Colors.black, fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 22.0),
+                          child: Text(
+                            formatter.format(number),
+                            style: new TextStyle(
+                                color: Colors.cyan, fontSize: 48.0),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 22.0),
+                          child: FAProgressBar(
+                            currentValue: progressSinceReportWasReleased,
+                            displayText: '%',
+                            size: 8,
+                            borderRadius: 4,
+                            progressColor: Colors.red,
+                            backgroundColor: Colors.cyan,
+                          ),
+                        ),
+                        Text(
+                          'seconds left to Help Earth.',
+                          style: new TextStyle(
+                              color: Colors.black, fontSize: 22.0),
+                          textAlign: TextAlign.center,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 64, bottom: 24),
+                          child: Text(
+                            'If Time runs out, life as you know it will permanently change for the worse.\n\nWe Are Already Out Of Time.',
+                            style: new TextStyle(
+                                color: Colors.black, fontSize: 18.0),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 12, right: 12, bottom: 24.0),
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          _launchURL(
+                              "https://climate.nasa.gov/scientific-consensus/");
+                        },
+                        child: new Text(
+                          'Read The Research',
+                          style:
+                              new TextStyle(color: Colors.cyan, fontSize: 24.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    color: Colors.cyan,
+                    height: 100,
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          Share.share('We have ' +
+                              formatter.format(timeWeHaveLeft) +
+                              ' seconds left to #HelpEarth. If Time runs out, life as you know it will permanently change for the worse.\n\nWe Are Already Out Of Time.');
+                        },
+                        child: new Text(
+                          'Do Something',
+                          style: new TextStyle(
+                              color: Colors.white, fontSize: 32.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-        ),
-        Container(
-          color: Colors.cyan,
-          height: 100,
-          child: Center(
-            child: GestureDetector(
-              onTap: () {
-                Share.share('We have ' +
-                    formatter.format(timeWeHaveLeft) +
-                    ' seconds left to #HelpEarth. If Time runs out, life as you know it will permanently change for the worse.\n\nWe Are Already Out Of Time.');
-              },
-              child: new Text(
-                'Do Something',
-                style: new TextStyle(color: Colors.white, fontSize: 32.0),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        )
-      ],
-    )));
+          ],
+        ));
   }
 
   _launchURL(String url) async {
