@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:quiver/async.dart';
+import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() {
@@ -204,14 +205,6 @@ class CountdownTimerPageState extends State<CountdownTimerPage> {
     ));
   }
 
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   _takeAction(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => TakeActionPage()));
@@ -358,8 +351,56 @@ class SendMessagePageState extends State<SendMessagePage> {
 
   @override
   Widget build(BuildContext context) {
+    String message =
+        "Dear [name]\n\nI am writing to express my concern about the imminent threat climate change poses to our country, to our people and the future of our children. An overwhelming number of scientists agree, and signs abound that climate change is occurring much faster than was initially predicted. We have only a few critical years before the changes become irreversible.\n\nMore than 2,000 scientists contributing to the Intergovernmental Panel on Climate Change (IPCC) have made it clear that cuts of at least 50% to 70% in global greenhouse gas emissions are necessary to allow our climate to re-stabilise. Therefore, the Government should be making every effort to reduce greenhouse gas emissions – now.\n\nSpecifically, I believe you should act to address the issues below, and I ask you to provide me with information on what the government is doing to reduce greenhouse gas emissions in the following areas:\n\n1. Reducing carbon dioxide emissions from coal fired power plants\n2. Reducing emissions from the transport sector\n3. Funding initiatives for alternative and renewable energy technology\n4. Incentives for the uptake of renewable energy\n5. Removal of subsidies for fossil based fuel sources\n\nTo secure a future for our nation and our children now is the time to set a new and positive direction for our national energy policy. We need policies that will lead our nation away from fossil based fuels.\n\nOur addiction to fossil fuel harms human health, causes global warming, degrades land and marine ecosystems, and pollutes the earth. We need energy systems that provide clean, renewable, and reliable energy that does not threaten human health or the environment. We do create our futures, and not to reach for it would be a gross abdication of our moral responsibility.\n\nI understand that focusing on climate change is just one of many issues during these challenging times. However, we can not wait until tomorrow we must take strong action now to address the daunting issues that climate change poses.\n\nSincerely\n\n[your name]";
+
     return new Scaffold(
-        appBar: AppBar(title: const Text('Help Earth')), body: new Text(title));
+        appBar: AppBar(title: const Text('Help Earth')),
+        body: Center(
+            child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            children: <Widget>[
+              new Text(title, style: new TextStyle(fontSize: 16.0)),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: new Text(message, style: new TextStyle(fontSize: 12.0)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Center(
+                  child: RaisedButton(
+                      textColor: Colors.white,
+                      color: Colors.red,
+                      child: Container(
+                        width: 256,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 4),
+                                child: new Text(
+                                  'Send Message',
+                                  style: new TextStyle(
+                                      color: Colors.white, fontSize: 24.0),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Share.share(message);
+                      },
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(12.0))),
+                ),
+              )
+            ],
+          ),
+        )));
   }
 }
 
@@ -452,4 +493,12 @@ ListTile _getListTile(BuildContext context, IconData icon, String title,
 
 _openPage(BuildContext context, StatefulWidget page) {
   Navigator.of(context).push(MaterialPageRoute(builder: (context) => page));
+}
+
+_launchURL(String url) async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
 }
