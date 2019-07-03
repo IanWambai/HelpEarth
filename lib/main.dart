@@ -229,11 +229,15 @@ class TakeActionPageState extends State<TakeActionPage> {
       Icons.directions_bus,
       Icons.directions_car,
     ];
+//    final titles = [
+//      'Tell These Companies',
+//      'Tell The Government',
+//      'Spread Awareness',
+//      'Change Your Habits'
+//    ];
     final titles = [
       'Tell These Companies',
-      'Tell The Government',
       'Spread Awareness',
-      'Change Your Habits'
     ];
     final descriptions = [
       'Lorem ipsum dolor sit amet',
@@ -244,7 +248,7 @@ class TakeActionPageState extends State<TakeActionPage> {
     final pages = [0, 1, 2, 3];
 
     List<Row> actions = List<Row>();
-    for (int i = 0; i < icons.length; i++) {
+    for (int i = 0; i < titles.length; i++) {
       actions.add(new Row(icons[i], titles[i], descriptions[i], pages[i]));
     }
 
@@ -270,7 +274,108 @@ class TellCompaniesPageState extends State<TellCompaniesPage> {
       Icons.directions_bus,
       Icons.directions_car,
     ];
-    final titles = ['Company 1', 'Company 2', 'Company 3', 'Company 4'];
+    final titles = [
+      'A.P. Moller – Maersk',
+      'Airbus Group',
+      'American Electric Power Company, Inc.',
+      'Anglo American',
+      'Anhui Conch Cement',
+      'ArcelorMittal',
+      'BASF SE',
+      'Bayer AG',
+      'Berkshire Hathaway',
+      'BHP Billiton',
+      'Boeing Company',
+      'BP',
+      'Canadian Natural Resources Limited',
+      'Caterpillar Inc.',
+      'Centrica',
+      'Chevron Corporation',
+      'China Petroleum & Chemical Corporation',
+      'China Shenhua Energy',
+      'CNOOC',
+      'Coal India',
+      'ConocoPhillips',
+      'Cummins Inc.',
+      'Daikin Industries, Ltd.',
+      'Duke Energy Corporation',
+      'E.ON SE',
+      'Ecopetrol Sa',
+      'EDF',
+      'ENEL SpA',
+      'ENGIE',
+      'Eni SpA',
+      'Equinor',
+      'Exelon Corporation',
+      'Exxon Mobil Corporation',
+      'Fiat Chrysler Automobiles NV',
+      'Ford Motor Company',
+      'Formosa Petrochemical',
+      'Gas Natural SDG SA',
+      'General Electric Company',
+      'General Motors Company',
+      'Glencore plc',
+      'Hitachi, Ltd.',
+      'Hon Hai Precision Industry',
+      'Honda Motor Company',
+      'Imperial Oil',
+      'Ingersoll-Rand Co. Ltd.',
+      'International Paper Company',
+      'JX Holdings Inc',
+      'Koninklijke Philips NV',
+      'Korea Electric Power Corp',
+      'LafargeHolcim Ltd',
+      'Lockheed Martin Corporation',
+      'Lukoil OAO',
+      'LyondellBasell Industries Cl A',
+      'Marathon Petroleum',
+      'Martin Marietta Materials, Inc.',
+      'MMC Norilsk Nickel OSJC',
+      'Nestlé',
+      'Nippon Steel & Sumitomo Metal Corporation',
+      'Nissan Motor Co., Ltd.',
+      'NTPC Ltd',
+      'Oil & Natural Gas',
+      'OMV AG',
+      'PACCAR Inc',
+      'Panasonic Corporation',
+      'PepsiCo Inc.',
+      'PETROCHINA Company Limited',
+      'Petróleo Brasileiro SA – Petrobras',
+      'Phillips 66',
+      'PJSC Gazprom',
+      'POSCO',
+      'Procter & Gamble Company',
+      'PTT',
+      'Reliance Industries',
+      'Repsol',
+      'Rio Tinto',
+      'Rolls-Royce',
+      'Rosneft Oil Company',
+      'Royal Dutch Shell',
+      'Saic Motor Corporation',
+      'Sasol Limited',
+      'Siemens AG',
+      'SK Innovation Co Ltd',
+      'Southern Copper Corporation',
+      'Suncor Energy Inc.',
+      'Suzuki Motor Corporation',
+      'Teck Resources Limited',
+      'Tesoro Corporation',
+      'The Dow Chemical Company',
+      'The Southern Company',
+      'thyssenkrupp AG',
+      'Toray Industries Inc.',
+      'Total',
+      'Toyota Motor Corporation',
+      'United Technologies Corporation',
+      'Vale',
+      'Valero Energy Corporation',
+      'Vedanta Ltd',
+      'Volkswagen AG',
+      'Volvo',
+      'Wesfarmers'
+    ];
     final descriptions = [
       'Lorem ipsum dolor sit amet',
       'Lorem ipsum dolor sit amet',
@@ -280,8 +385,8 @@ class TellCompaniesPageState extends State<TellCompaniesPage> {
     final pages = [4, 5, 6, 7];
 
     List<Row> companies = List<Row>();
-    for (int i = 0; i < icons.length; i++) {
-      companies.add(new Row(icons[i], titles[i], descriptions[i], pages[i]));
+    for (int i = 0; i < titles.length; i++) {
+      companies.add(new Row(icons[0], titles[i], descriptions[0], pages[0]));
     }
 
     return companies;
