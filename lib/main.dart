@@ -1,6 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
 
 void main() {
   runApp(new MaterialApp(
@@ -29,109 +30,46 @@ class ViewRepresentativesState extends State<ViewRepresentatives> {
       'https://www.kbl.co.uk/wp-content/uploads/2017/11/Default-Profile-Male.jpg'
     ];
     final titles = ['Sub Chief', 'Chief', 'Women\'s Rep', 'Governer'];
+    final names = ['John Doe', 'James Doi', 'Jane Dear', 'Jake Dol'];
     final coordinates = ['2 km', '5 km', '18 km', '37 km'];
-    final descriptions = [
+    final emailAddresses = [
+      'Your current Sub Chief is John Doe',
+      'Your current Chief is John Doe',
+      'Your current Women\'s Rep is Jane Doe',
+      'Your current Governer is John Doe'
+    ];
+    final phoneNumbers = [
       'Your current Sub Chief is John Doe',
       'Your current Chief is John Doe',
       'Your current Women\'s Rep is Jane Doe',
       'Your current Governer is John Doe'
     ];
 
-    List<ListItem> representatives = List<ListItem>();
+    List<RepresentativeItem> representatives = List<RepresentativeItem>();
     for (int i = 0; i < titles.length; i++) {
-      representatives.add(new ListItem(
-          ids[i], icons[i], titles[i], coordinates[i], descriptions[i]));
+      representatives.add(new RepresentativeItem(ids[i], icons[i], titles[i],
+          names[i], coordinates[i], emailAddresses[i], phoneNumbers[i]));
     }
 
     return representatives;
   }
 }
 
-// ignore: must_be_immutable
-class MessagePage extends StatefulWidget {
-  String title;
-
-  MessagePage(String title) {
-    this.title = title;
-  }
-
-  @override
-  MessagePageState createState() => new MessagePageState(title);
-}
-
-class MessagePageState extends State<MessagePage> {
-  String title;
-
-  MessagePageState(String title) {
-    this.title = title;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    String message =
-        "Dear [name]\n\nI am writing to express my concern about the imminent threat climate change poses to our country, to our people and the future of our children. An overwhelming number of scientists agree, and signs abound that climate change is occurring much faster than was initially predicted. We have only a few critical years before the changes become irreversible.\n\nMore than 2,000 scientists contributing to the Intergovernmental Panel on Climate Change (IPCC) have made it clear that cuts of at least 50% to 70% in global greenhouse gas emissions are necessary to allow our climate to re-stabilise. Therefore, the Government should be making every effort to reduce greenhouse gas emissions – now.\n\nSpecifically, I believe you should act to address the issues below, and I ask you to provide me with information on what the government is doing to reduce greenhouse gas emissions in the following areas:\n\n1. Reducing carbon dioxide emissions from coal fired power plants\n2. Reducing emissions from the transport sector\n3. Funding initiatives for alternative and renewable energy technology\n4. Incentives for the uptake of renewable energy\n5. Removal of subsidies for fossil based fuel sources\n\nTo secure a future for our nation and our children now is the time to set a new and positive direction for our national energy policy. We need policies that will lead our nation away from fossil based fuels.\n\nOur addiction to fossil fuel harms human health, causes global warming, degrades land and marine ecosystems, and pollutes the earth. We need energy systems that provide clean, renewable, and reliable energy that does not threaten human health or the environment. We do create our futures, and not to reach for it would be a gross abdication of our moral responsibility.\n\nI understand that focusing on climate change is just one of many issues during these challenging times. However, we can not wait until tomorrow we must take strong action now to address the daunting issues that climate change poses.\n\nSincerely\n\n[your name]";
-
-    return new Scaffold(
-        appBar: AppBar(title: const Text('Help Earth')),
-        body: Center(
-            child: Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Column(
-            children: <Widget>[
-              new Text(title, style: new TextStyle(fontSize: 16.0)),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new Text(message, style: new TextStyle(fontSize: 12.0)),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: Center(
-                  child: RaisedButton(
-                      textColor: Colors.white,
-                      color: Colors.red,
-                      child: Container(
-                        width: 256,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 4),
-                                child: new Text(
-                                  'Send Message',
-                                  style: new TextStyle(
-                                      color: Colors.white, fontSize: 24.0),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        Share.share(message);
-                      },
-                      shape: new RoundedRectangleBorder(
-                          borderRadius: new BorderRadius.circular(12.0))),
-                ),
-              ),
-            ],
-          ),
-        )));
-  }
-}
-
-class ListItem {
+class RepresentativeItem {
   final String id;
-  final String icon;
+  final String image;
   final String title;
+  final String name;
   final String coordinates;
-  final String description;
+  final String emailAddress;
+  final String phoneNumber;
 
-  ListItem(this.id, this.icon, this.title, this.coordinates, this.description);
+  RepresentativeItem(this.id, this.image, this.title, this.name,
+      this.coordinates, this.emailAddress, this.phoneNumber);
 }
 
-Widget _getList(BuildContext context, List<ListItem> representatives) {
+Widget _getList(
+    BuildContext context, List<RepresentativeItem> representatives) {
   return new Scaffold(
       appBar: AppBar(
           title: Padding(
@@ -156,7 +94,10 @@ Widget _getList(BuildContext context, List<ListItem> representatives) {
               padding: const EdgeInsets.only(top: 4),
               child: new Text(
                 '#HelpEarth',
-                style: new TextStyle(color: Colors.black87, fontSize: 18.0),
+                style: new TextStyle(
+                    color: Colors.black87,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
@@ -190,7 +131,7 @@ Widget _getList(BuildContext context, List<ListItem> representatives) {
               )));
 }
 
-ListTile _getListTile(BuildContext context, ListItem representative) {
+ListTile _getListTile(BuildContext context, RepresentativeItem representative) {
   return ListTile(
     leading: new Container(
         width: 64.0,
@@ -199,15 +140,18 @@ ListTile _getListTile(BuildContext context, ListItem representative) {
             shape: BoxShape.circle,
             image: new DecorationImage(
                 fit: BoxFit.fill,
-                image: new NetworkImage(representative.icon)))),
+                image: new NetworkImage(representative.image)))),
     title: _getTitle(representative.title, representative.coordinates),
     subtitle: Padding(
       padding: const EdgeInsets.only(top: 8),
-      child: Text(representative.description),
+      child: Text('Your current ' +
+          representative.title +
+          ' is ' +
+          representative.name),
     ),
     trailing: Icon(Icons.keyboard_arrow_right),
     onTap: () {
-      _openPage(context, MessagePage(representative.title));
+      _openPage(context, MessagePage(representative));
     },
   );
 }
@@ -217,7 +161,8 @@ Widget _getTitle(String title, String time) {
     children: <Widget>[
       new Text(
         title,
-        style: new TextStyle(color: Colors.black87, fontSize: 16.0),
+        style: new TextStyle(
+            color: Colors.black87, fontSize: 16.0, fontWeight: FontWeight.bold),
       ),
       Padding(
         padding: const EdgeInsets.only(left: 6, right: 6),
@@ -233,6 +178,135 @@ Widget _getTitle(String title, String time) {
       ),
     ],
   );
+}
+
+// ignore: must_be_immutable
+class MessagePage extends StatefulWidget {
+  RepresentativeItem representative;
+
+  MessagePage(RepresentativeItem representative) {
+    this.representative = representative;
+  }
+
+  @override
+  MessagePageState createState() => new MessagePageState(representative);
+}
+
+class MessagePageState extends State<MessagePage> {
+  RepresentativeItem representative;
+  List issues = [
+    'Climate Change',
+    'Corruption',
+    'Health Care',
+    'Education',
+    'Employment'
+  ];
+  List<DropdownMenuItem<String>> dropDownMenuItems;
+  String currentIssue;
+
+  @override
+  void initState() {
+    dropDownMenuItems = getDropDownMenuItems();
+    currentIssue = dropDownMenuItems[0].value;
+    super.initState();
+  }
+
+  List<DropdownMenuItem<String>> getDropDownMenuItems() {
+    List<DropdownMenuItem<String>> items = new List();
+    for (String issue in issues) {
+      items.add(new DropdownMenuItem(value: issue, child: new Text(issue)));
+    }
+    return items;
+  }
+
+  MessagePageState(RepresentativeItem representative) {
+    this.representative = representative;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String message = "Dear " +
+        representative.name +
+        ",\n\nI understand that focusing on climate change is just one of many issues during these challenging times. However, we can not wait until tomorrow we must take strong action now to address the daunting issues that climate change poses I understand that focusing on climate change is just one of many issues during these challenging times.\n\nHowever, we can not wait until tomorrow we must take strong action now to address the daunting issues that climate change poses. I understand that focusing on climate change is just one of many issues during these challenging times.\n\nHowever, we can not wait until tomorrow we must take strong action now to address the daunting issues that climate change poses. I understand that focusing on climate change is just one of many issues during these challenging times. However, we can not wait until tomorrow we must take strong action now to address the daunting issues that climate change poses.\n\nI understand that focusing on climate change is just one of many issues during these challenging times. However, we can not wait until tomorrow we must take strong action now to address the daunting issues that climate change poses.";
+    final TextEditingController controller = TextEditingController();
+    controller.text = message;
+
+    return new Scaffold(
+        appBar: AppBar(title: Text(representative.title), actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.check,
+              color: Colors.red,
+            ),
+            onPressed: () {
+              Share.share(message);
+            },
+          ),
+        ]),
+        body: Center(
+            child: Column(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(top: 32, bottom: 16),
+              child: new Container(
+                  width: 72.0,
+                  height: 72.0,
+                  decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                          fit: BoxFit.fill,
+                          image: new NetworkImage(representative.image)))),
+            ),
+            Text(representative.name,
+                style:
+                    new TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 32),
+                    child: new Text(
+                        'Select a letter to send your ' + representative.title),
+                  ),
+                  new DropdownButton(
+                    value: currentIssue,
+                    items: dropDownMenuItems,
+                    onChanged: changedDropDownItem,
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: SingleChildScrollView(
+                child: Container(
+                  decoration: new BoxDecoration(
+                      color: Color(0xFFe6e6e6),
+                      borderRadius:
+                          new BorderRadius.all(Radius.circular(16.0))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32.0),
+                    child: TextField(
+                      controller: controller,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        )));
+  }
+
+  void changedDropDownItem(String selectedIssue) {
+    setState(() {
+      currentIssue = selectedIssue;
+    });
+  }
 }
 
 _openPage(BuildContext context, StatefulWidget page) {
