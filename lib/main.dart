@@ -4,163 +4,65 @@ import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(new MaterialApp(
-      theme: ThemeData(fontFamily: 'Blogger Sans'),
-      home: new TellCompaniesPage()));
+      theme: ThemeData(
+          fontFamily: 'Blogger Sans', primaryColor: Color(0xFFFFFFFF)),
+      home: new ViewRepresentatives()));
 }
 
-class TellCompaniesPage extends StatefulWidget {
+class ViewRepresentatives extends StatefulWidget {
   @override
-  TellCompaniesPageState createState() => new TellCompaniesPageState();
+  ViewRepresentativesState createState() => new ViewRepresentativesState();
 }
 
-class TellCompaniesPageState extends State<TellCompaniesPage> {
+class ViewRepresentativesState extends State<ViewRepresentatives> {
   @override
   Widget build(BuildContext context) {
-    return _getList(context, _getCompanies());
+    return _getList(context, _getRepresentatives());
   }
 
-  _getCompanies() {
+  _getRepresentatives() {
+    final ids = ["id1", "id2", "id3", "id4"];
     final icons = [
-      Icons.directions_bike,
-      Icons.directions_boat,
-      Icons.directions_bus,
-      Icons.directions_car,
+      'https://www.kbl.co.uk/wp-content/uploads/2017/11/Default-Profile-Male.jpg',
+      'https://www.kbl.co.uk/wp-content/uploads/2017/11/Default-Profile-Male.jpg',
+      'https://www.kbl.co.uk/wp-content/uploads/2017/11/Default-Profile-Male.jpg',
+      'https://www.kbl.co.uk/wp-content/uploads/2017/11/Default-Profile-Male.jpg'
     ];
-    final titles = [
-      'A.P. Moller – Maersk',
-      'Airbus Group',
-      'American Electric Power Company, Inc.',
-      'Anglo American',
-      'Anhui Conch Cement',
-      'ArcelorMittal',
-      'BASF SE',
-      'Bayer AG',
-      'Berkshire Hathaway',
-      'BHP Billiton',
-      'Boeing Company',
-      'BP',
-      'Canadian Natural Resources Limited',
-      'Caterpillar Inc.',
-      'Centrica',
-      'Chevron Corporation',
-      'China Petroleum & Chemical Corporation',
-      'China Shenhua Energy',
-      'CNOOC',
-      'Coal India',
-      'ConocoPhillips',
-      'Cummins Inc.',
-      'Daikin Industries, Ltd.',
-      'Duke Energy Corporation',
-      'E.ON SE',
-      'Ecopetrol Sa',
-      'EDF',
-      'ENEL SpA',
-      'ENGIE',
-      'Eni SpA',
-      'Equinor',
-      'Exelon Corporation',
-      'Exxon Mobil Corporation',
-      'Fiat Chrysler Automobiles NV',
-      'Ford Motor Company',
-      'Formosa Petrochemical',
-      'Gas Natural SDG SA',
-      'General Electric Company',
-      'General Motors Company',
-      'Glencore plc',
-      'Hitachi, Ltd.',
-      'Hon Hai Precision Industry',
-      'Honda Motor Company',
-      'Imperial Oil',
-      'Ingersoll-Rand Co. Ltd.',
-      'International Paper Company',
-      'JX Holdings Inc',
-      'Koninklijke Philips NV',
-      'Korea Electric Power Corp',
-      'LafargeHolcim Ltd',
-      'Lockheed Martin Corporation',
-      'Lukoil OAO',
-      'LyondellBasell Industries Cl A',
-      'Marathon Petroleum',
-      'Martin Marietta Materials, Inc.',
-      'MMC Norilsk Nickel OSJC',
-      'Nestlé',
-      'Nippon Steel & Sumitomo Metal Corporation',
-      'Nissan Motor Co., Ltd.',
-      'NTPC Ltd',
-      'Oil & Natural Gas',
-      'OMV AG',
-      'PACCAR Inc',
-      'Panasonic Corporation',
-      'PepsiCo Inc.',
-      'PETROCHINA Company Limited',
-      'Petróleo Brasileiro SA – Petrobras',
-      'Phillips 66',
-      'PJSC Gazprom',
-      'POSCO',
-      'Procter & Gamble Company',
-      'PTT',
-      'Reliance Industries',
-      'Repsol',
-      'Rio Tinto',
-      'Rolls-Royce',
-      'Rosneft Oil Company',
-      'Royal Dutch Shell',
-      'Saic Motor Corporation',
-      'Sasol Limited',
-      'Siemens AG',
-      'SK Innovation Co Ltd',
-      'Southern Copper Corporation',
-      'Suncor Energy Inc.',
-      'Suzuki Motor Corporation',
-      'Teck Resources Limited',
-      'Tesoro Corporation',
-      'The Dow Chemical Company',
-      'The Southern Company',
-      'thyssenkrupp AG',
-      'Toray Industries Inc.',
-      'Total',
-      'Toyota Motor Corporation',
-      'United Technologies Corporation',
-      'Vale',
-      'Valero Energy Corporation',
-      'Vedanta Ltd',
-      'Volkswagen AG',
-      'Volvo',
-      'Wesfarmers'
-    ];
+    final titles = ['Sub Chief', 'Chief', 'Women\'s Rep', 'Governer'];
+    final coordinates = ['2 km', '5 km', '18 km', '37 km'];
     final descriptions = [
-      'Lorem ipsum dolor sit amet',
-      'Lorem ipsum dolor sit amet',
-      'Lorem ipsum dolor sit amet',
-      'Lorem ipsum dolor sit amet'
+      'Your current Sub Chief is John Doe',
+      'Your current Chief is John Doe',
+      'Your current Women\'s Rep is Jane Doe',
+      'Your current Governer is John Doe'
     ];
-    final pages = [4, 5, 6, 7];
 
-    List<Row> companies = List<Row>();
+    List<ListItem> representatives = List<ListItem>();
     for (int i = 0; i < titles.length; i++) {
-      companies.add(new Row(icons[0], titles[i], descriptions[0], pages[0]));
+      representatives.add(new ListItem(
+          ids[i], icons[i], titles[i], coordinates[i], descriptions[i]));
     }
 
-    return companies;
+    return representatives;
   }
 }
 
 // ignore: must_be_immutable
-class SendMessagePage extends StatefulWidget {
+class MessagePage extends StatefulWidget {
   String title;
 
-  SendMessagePage(String title) {
+  MessagePage(String title) {
     this.title = title;
   }
 
   @override
-  SendMessagePageState createState() => new SendMessagePageState(title);
+  MessagePageState createState() => new MessagePageState(title);
 }
 
-class SendMessagePageState extends State<SendMessagePage> {
+class MessagePageState extends State<MessagePage> {
   String title;
 
-  SendMessagePageState(String title) {
+  MessagePageState(String title) {
     this.title = title;
   }
 
@@ -212,83 +114,124 @@ class SendMessagePageState extends State<SendMessagePage> {
                       shape: new RoundedRectangleBorder(
                           borderRadius: new BorderRadius.circular(12.0))),
                 ),
-              )
+              ),
             ],
           ),
         )));
   }
 }
 
-class Row {
-  final IconData icon;
+class ListItem {
+  final String id;
+  final String icon;
   final String title;
+  final String coordinates;
   final String description;
-  final int page;
 
-  Row(this.icon, this.title, this.description, this.page);
+  ListItem(this.id, this.icon, this.title, this.coordinates, this.description);
 }
 
-Widget _getList(BuildContext context, List<Row> rows) {
+Widget _getList(BuildContext context, List<ListItem> representatives) {
   return new Scaffold(
-      appBar: AppBar(title: const Text('Help Earth')),
-      body: ListView.builder(
-        itemCount: rows.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: _getListTile(context, rows[index].icon, rows[index].title,
-                rows[index].description, rows[index].page),
-          );
-        },
-      ));
+      appBar: AppBar(
+          title: Padding(
+        padding: const EdgeInsets.only(right: 24),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: new Container(
+                  width: 36.0,
+                  height: 36.0,
+                  decoration: new BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                          fit: BoxFit.fill,
+                          image: new NetworkImage(
+                              'https://www.kbl.co.uk/wp-content/uploads/2017/11/Default-Profile-Male.jpg')))),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: new Text(
+                '#HelpEarth',
+                style: new TextStyle(color: Colors.black87, fontSize: 18.0),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4, left: 6, right: 6),
+              child: new Container(
+                  width: 3.0,
+                  height: 3.0,
+                  decoration: new BoxDecoration(
+                      color: Colors.grey, shape: BoxShape.circle)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4),
+              child: new Text(
+                'Nairobi',
+                style: new TextStyle(color: Colors.grey, fontSize: 18.0),
+              ),
+            ),
+          ],
+        ),
+      )),
+      body: ListView.separated(
+          itemCount: representatives.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: _getListTile(context, representatives[index]),
+            );
+          },
+          separatorBuilder: (context, index) => Divider(
+                color: Color(0xFFe3e3e3),
+              )));
 }
 
-ListTile _getListTile(BuildContext context, IconData icon, String title,
-    String description, int page) {
+ListTile _getListTile(BuildContext context, ListItem representative) {
   return ListTile(
-    leading: Icon(icon),
-    title: Text(title),
-    subtitle: Text(description),
+    leading: new Container(
+        width: 64.0,
+        height: 64.0,
+        decoration: new BoxDecoration(
+            shape: BoxShape.circle,
+            image: new DecorationImage(
+                fit: BoxFit.fill,
+                image: new NetworkImage(representative.icon)))),
+    title: _getTitle(representative.title, representative.coordinates),
+    subtitle: Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Text(representative.description),
+    ),
     trailing: Icon(Icons.keyboard_arrow_right),
     onTap: () {
-      switch (page) {
-        case 0:
-          _openPage(context, TellCompaniesPage());
-          break;
-        case 1:
-          _openPage(context, TellCompaniesPage());
-          break;
-        case 2:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 3:
-          _openPage(context, TellCompaniesPage());
-          break;
-        case 4:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 5:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 6:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 7:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 8:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 9:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 10:
-          _openPage(context, SendMessagePage(title));
-          break;
-        case 11:
-          _openPage(context, SendMessagePage(title));
-          break;
-      }
+      _openPage(context, MessagePage(representative.title));
     },
+  );
+}
+
+Widget _getTitle(String title, String time) {
+  return Row(
+    children: <Widget>[
+      new Text(
+        title,
+        style: new TextStyle(color: Colors.black87, fontSize: 16.0),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(left: 6, right: 6),
+        child: new Container(
+            width: 3.0,
+            height: 3.0,
+            decoration:
+                new BoxDecoration(color: Colors.grey, shape: BoxShape.circle)),
+      ),
+      new Text(
+        time,
+        style: new TextStyle(color: Colors.grey, fontSize: 14.0),
+      ),
+    ],
   );
 }
 
@@ -296,6 +239,7 @@ _openPage(BuildContext context, StatefulWidget page) {
   Navigator.of(context).push(MaterialPageRoute(builder: (context) => page));
 }
 
+// ignore: unused_element
 _launchURL(String url) async {
   if (await canLaunch(url)) {
     await launch(url);
